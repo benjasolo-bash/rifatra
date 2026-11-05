@@ -1,2 +1,2 @@
-# rifatra
-rifatra is for mechanics,
+#!/bin/bash
+echo "rifatra"
