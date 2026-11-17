@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>rifatra</title>
+</head>
+<body>
+<h1>rifatra</h1>
+<div id="divStart">
+<p>No localhost, no server, just this file</p>
+<input id="user" placeholder="username"><br>
+<input id="pass" type="password" placeholder="password"><br>
+<button id="loginB" class="green" onclick="doLogin ();">Login</button>
+<button id="joinB" class="yellow" onclick="doJoin ();">Join</button>
+</div>
+<div id="divUsers">hents:2026 malahayteknolojia:2023 h3nts:1993 benjasolo:1993
+<button id="showUsersB" onclick="showUsers ();">Show users</button>
+<div id="divCodes">hents:2026 malahayteknolojia:2023 h3nts:1993 benjasolo:1993
+<p></p>
+<button id="hideUsersB" onclick="hideUsers ();">Back</button>
+</div>
+</div>
+<p id="msg"></p>
+<p>Tip: User created in bash are in users.txt, users created on browser are in localStorage.</p>
+<button id="exitB" class="red" onclick="doExit ();">Exit</button>
+<script>
+let bashUsers = {};
+let startUsers = document.getElementById("divStart");
+let listUsers = document.getElementById("divUsers");
+let codeUsers = document.getElementById("divCodes");
+let exitUsersB = document.getElementById("exitB");
+listUsers.style.display = 'none';
+codeUsers.style.display = 'none';
+exitUsersB.style.display = 'none';
+function doJoin () {
+	let u = document.getElementById("user").value;
+	let p = document.getElementById("pass").value;
+	if (!u || !p) {document.getElementById("msg").innerText = "Fill both!";return;}
+	if (localStorage.getItem("user_" + u) || bashUsers[u]) {document.getElementById("msg").innerText = "User " + u + ", already existes.";return;}
+	localStorage.setItem ("user_" + u, p);
+	document.getElementById("msg").innerText = "Account created for " + u + "! (Saved in browser)";
+	startUsers.style.display = 'none';
+	alert ("hents:2026 malahayteknolojia:2023 h3nts:1993 benjasolo:1993");
+	listUsers.style.display = 'block';
+	exitUsersB.style.display = 'block';
+}
+function doLogin () {
+	let u = document.getElementById("user").value;
+	let p = document.getElementById("pass").value;
+	let saved = localStorage.getItem("user_" + u);
+	if (!u || !p) {document.getElementById("msg").innerText = "Fill both!";return;}
+	if (saved === p && saved !== null) {document.getElementById("msg").innerText = "Welcome back, " + u + "! (from browser)";return;}
+	if (bashUsers[u] === p) {document.getElementById("msg").innerText = "Welcome back, " + u + "! (from bash users.txt)";return;}
+	document.getElementById("msg").innerText = "Login failed.";
+	startUsers.style.display = 'none';
+	alert ("hents:2026 malahayteknolojia:2023 h3nts:1993 benjasolo:1993");
+	listUsers.style.display = 'block';
+	exitUsersB.style.display = 'block';
+}
+function showUsers () {
+	codeUsers.style.display = 'block';
+}
+function hideUsers () {
+	codeUsers.style.display = 'none';
+}
+function doExit () {
+	listUsers.style.display = 'none';
+	codeUsers.style.display = 'none';
+	exitUsersB.style.display = 'none';
+	divStart.style.display = 'block';
+	document.getElementById("user").value = null;
+	document.getElementById("pass").value = null;
+}
+</script>
+</body>
+</html>
