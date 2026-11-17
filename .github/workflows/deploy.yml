@@ -3,7 +3,8 @@ name: Build Rifatra Site
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
+  workflow_dispatch:
 
 permissions:
   contents: read
