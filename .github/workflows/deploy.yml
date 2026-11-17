@@ -1,0 +1,36 @@
+yaml
+name: Build Rifatra Site
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+  runs-on: ubuntu-latest
+  steps:
+    -name: Get my repo files
+     uses: actions/checkout@v4
+
+    -name: Run my Bash file
+     run: |
+      chmod +x rifatra.sh
+      printf "1\n5\n" | ./rifatra.sh
+      ls -l
+
+    -name: Upload the site
+     uses: actions/upload-pages-artifact@v3
+     with:
+      path: .
+
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    -name: Publish to Pages
+     uses: actions/deploy-pages@v4
